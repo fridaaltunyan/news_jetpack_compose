@@ -75,6 +75,7 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation.compose)
     ksp(libs.hilt.compiler)
+    implementation(libs.room.ktx)
     implementation(libs.room.runtime)
     ksp(libs.room.compiler)
     annotationProcessor(libs.room.compiler)
@@ -86,5 +87,8 @@ dependencies {
     implementation(libs.retrofit2)
     implementation(libs.retrofit2.converter.gson)
     implementation(libs.okhttp3)
+    implementation(libs.okhttp.logging.interceptor)
+    implementation(libs.coil.kt.compose)
+    implementation(libs.androidx.navigation.compose)
 
 }
