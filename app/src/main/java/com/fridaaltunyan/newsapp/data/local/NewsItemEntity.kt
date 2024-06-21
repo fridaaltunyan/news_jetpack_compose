@@ -8,7 +8,5 @@ data class NewsItemEntity(
     @PrimaryKey val id: String,
     val webTitle: String,
     val webPublicationDate: String,
-    val webUrl: String,
     val thumbnail: String?,
-    val body: String?
 )

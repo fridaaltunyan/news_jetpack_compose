@@ -1,18 +1,21 @@
 package com.fridaaltunyan.newsapp.data.local
 
+import androidx.paging.PagingSource
 import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Upsert
 
 @Dao
 interface NewsDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(article: NewsItemEntity)
+    @Query("DELETE FROM news")
+    suspend fun clearAll()
 
     @Query("SELECT * FROM news WHERE id = :id")
     suspend fun getArticleById(id: String): NewsItemEntity?
 
+    @Upsert
+    suspend fun upsertAll(news: List<NewsItemEntity>)
+
     @Query("SELECT * FROM news")
-    suspend fun getAllArticles(): List<NewsItemEntity>
+    fun pagingSource(): PagingSource<Int, NewsItemEntity>
 }

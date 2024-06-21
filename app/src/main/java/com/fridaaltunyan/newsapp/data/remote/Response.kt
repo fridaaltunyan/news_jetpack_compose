@@ -5,9 +5,7 @@ data class Response(
     val orderBy: String,
     val pageSize: Int,
     val pages: Int,
-    val results: List<Result>,
+    val newsResponses: List<NewsResponse>,
     val startIndex: Int,
-    val status: String,
     val total: Int,
-    val userTier: String
 )

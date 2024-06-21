@@ -9,14 +9,16 @@ lifecycleRuntimeKtx = "2.8.2"
 activityCompose = "1.9.0"
 composeBom = "2024.06.00"
 hiltVersion = "2.49"
-hiltNavigationVersion= "1.2.0"
+hiltNavigationVersion = "1.2.0"
 kspVersion = "1.9.0-1.0.12"
 roomVersion = "2.6.1"
 pagingVersion = "3.3.0"
 retrofit = "2.9.0"
 okhttp3 = "5.0.0-alpha.2"
-coil = "2.2.2"
-androidxNavigation = "2.5.3"
+coil = "2.4.0"
+androidxNavigation = "2.7.7"
+androidxComposeAdaptiveLayout = "1.0.0-alpha12"
+
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -50,8 +52,6 @@ okhttp3 = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okht
 okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp3" }
 coil-kt-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidxNavigation" }
-
-
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
