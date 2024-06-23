@@ -12,6 +12,7 @@ import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
+
 @OptIn(ExperimentalPagingApi::class)
 class NewsRemoteMediator @Inject constructor(
     private val newsApi: NewsApi,
@@ -48,12 +49,12 @@ class NewsRemoteMediator @Inject constructor(
                     newsDatabase.dao.clearAll()
                 }
                 val newsEntities =
-                    news.map { it.response.newsResponses.map { news-> news.toNewsItemEntity() } }
-                newsDatabase.dao.upsertAll(newsEntities[0])
+                    news.response.newsResponses.map { news-> news.toNewsItemEntity() }
+                newsDatabase.dao.upsertAll(newsEntities)
             }
 
             MediatorResult.Success(
-                endOfPaginationReached = news.isEmpty()
+                endOfPaginationReached = news.response.pageSize == 20
             )
         } catch (e: IOException) {
             MediatorResult.Error(e)

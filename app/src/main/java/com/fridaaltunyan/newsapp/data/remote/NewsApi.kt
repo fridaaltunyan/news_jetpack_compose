@@ -1,13 +1,9 @@
 package com.fridaaltunyan.newsapp.data.remote
 
-import androidx.paging.PagingData
-import kotlinx.coroutines.flow.Flow
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface NewsApi {
-    @GET()
-    suspend fun getNewsDetail(id: Long): NewsPaginationResponse
 
     @GET("search")
     suspend fun searchNews(
@@ -16,7 +12,7 @@ interface NewsApi {
         @Query("page") page: Int,
         @Query("page-size") pageSize: Int,
         @Query("show-fields") fields: String = "thumbnail",
-    ): List<NewsPaginationResponse>
+    ): NewsPaginationResponse
 
     companion object {
         const val BASE_URL = "https://content.guardianapis.com/"

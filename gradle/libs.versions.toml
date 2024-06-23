@@ -17,8 +17,7 @@ retrofit = "2.9.0"
 okhttp3 = "5.0.0-alpha.2"
 coil = "2.4.0"
 androidxNavigation = "2.7.7"
-androidxComposeAdaptiveLayout = "1.0.0-alpha12"
-
+kotlinParcelize = "1.6.10"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -59,4 +58,6 @@ jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = 
 kotlinAndroidKsp = { id = "com.google.devtools.ksp", version.ref = "kspVersion" }
 hiltAndroid = { id = "com.google.dagger.hilt.android", version.ref = "hiltVersion" }
 androidxRoom = { id = "androidx.room", version.ref = "roomVersion" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version = "1.6.10" }
+
 

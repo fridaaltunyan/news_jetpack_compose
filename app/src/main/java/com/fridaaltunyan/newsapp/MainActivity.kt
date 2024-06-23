@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     val viewModel = hiltViewModel<NewsViewModel>()
                     val news = viewModel.newsPagingFlow.collectAsLazyPagingItems()
-                    NewsScreen(news = news)
+                    NewsScreen(news = news,viewModel)
                 }
             }
         }

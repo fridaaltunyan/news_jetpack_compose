@@ -3,23 +3,32 @@ package com.fridaaltunyan.newsapp.presentation.news
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.itemKey
 import com.fridaaltunyan.newsapp.domain.model.UINews
+import com.fridaaltunyan.newsapp.presentation.news_detail.NewsItem
 
 @Composable
 fun NewsScreen(
-    news: LazyPagingItems<UINews>
+    news: LazyPagingItems<UINews>,
+    viewModel: NewsViewModel,
 ) {
     val context = LocalContext.current
     LaunchedEffect(key1 = news.loadState) {
@@ -31,8 +40,16 @@ fun NewsScreen(
             ).show()
         }
     }
+    val searchText by viewModel.searchText.collectAsState()
 
     Box(modifier = Modifier.fillMaxSize()) {
+        TextField(
+            value = searchText,
+            onValueChange = viewModel::onSearchTextChange,
+            modifier = Modifier.fillMaxWidth(),
+            placeholder = { Text(text = "Search") }
+        )
+        Spacer(modifier = Modifier.height(16.dp))
         if (news.loadState.refresh is LoadState.Loading) {
             CircularProgressIndicator(
                 modifier = Modifier.align(Alignment.Center)
@@ -43,12 +60,18 @@ fun NewsScreen(
                 verticalArrangement = Arrangement.spacedBy(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                items(news.itemSnapshotList) { article ->
-                    if (article != null) {
-                        UINews(
-                            webTitle = article.webTitle,
-                            webPublicationDate = article.webPublicationDate,
-                            thumbnail = article.thumbnail
+                items(
+                    count = news.itemCount,
+                    key = news.itemKey { it },
+                ) { index ->
+                    val item = news[index]
+                    if (item != null) {
+                        NewsItem(
+                            news = UINews(
+                                webTitle = item.webTitle,
+                                webPublicationDate = item.webPublicationDate,
+                                thumbnail = item.thumbnail,
+                            ), modifier = Modifier.fillMaxWidth()
                         )
                     }
                 }
