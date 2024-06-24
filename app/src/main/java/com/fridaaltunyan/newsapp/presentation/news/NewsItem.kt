@@ -1,4 +1,4 @@
-package com.fridaaltunyan.newsapp.presentation.news_detail
+package com.fridaaltunyan.newsapp.presentation.news
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -30,7 +30,8 @@ import com.fridaaltunyan.newsapp.ui.theme.NewsAppTheme
 @Composable
 fun NewsItem(
     news: UINews,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onCardClicked: () -> Unit
 ) {
     Card(
         modifier = modifier,
@@ -40,6 +41,7 @@ fun NewsItem(
         colors = CardDefaults.cardColors(
             containerColor = CardPrimaryBackground
         ),
+        onClick = onCardClicked
     ) {
         Row(
             modifier = Modifier
@@ -83,15 +85,14 @@ fun NewsItem(
 
 @Preview
 @Composable
-fun BeerItemPreview() {
+fun NewsItemPreview() {
     NewsAppTheme {
         NewsItem(
             news = UINews(
                 webTitle = "sagittis", webPublicationDate = "ligula", thumbnail = null
-
             ),
             modifier = Modifier.fillMaxWidth()
-        )
+        ) {}
     }
 }
 

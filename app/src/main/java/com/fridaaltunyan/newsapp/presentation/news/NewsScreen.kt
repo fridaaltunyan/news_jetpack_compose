@@ -27,13 +27,13 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemKey
 import com.fridaaltunyan.newsapp.domain.model.UINews
-import com.fridaaltunyan.newsapp.presentation.news_detail.NewsItem
 import com.fridaaltunyan.newsapp.ui.theme.PrimaryBackground
 
 @Composable
 fun NewsScreen(
     news: LazyPagingItems<UINews>,
     viewModel: NewsViewModel,
+    onCardClick: (UINews) -> Unit,
 ) {
     val context = LocalContext.current
     LaunchedEffect(key1 = news.loadState) {
@@ -52,7 +52,7 @@ fun NewsScreen(
             .fillMaxSize()
             .navigationBarsPadding()
             .background(color = PrimaryBackground)
-            .padding(top = 16.dp),
+            .padding(top = 16.dp)
     ) {
         TextField(
             value = searchText,
@@ -86,7 +86,15 @@ fun NewsScreen(
                                 webPublicationDate = item.webPublicationDate,
                                 thumbnail = item.thumbnail,
                             ), modifier = Modifier.fillMaxWidth()
-                        )
+                        ) {
+                            onCardClick.invoke(
+                                UINews(
+                                    webTitle = item.webTitle,
+                                    webPublicationDate = item.webPublicationDate,
+                                    thumbnail = item.thumbnail,
+                                )
+                            )
+                        }
                     }
                 }
                 item {

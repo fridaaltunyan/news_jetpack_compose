@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlinAndroidKsp)
     alias(libs.plugins.hiltAndroid)
     alias(libs.plugins.androidxRoom)
+    alias(libs.plugins.kotlin.serialization)
     id("kotlin-parcelize")
 }
 
@@ -90,6 +91,7 @@ dependencies {
     implementation(libs.okhttp3)
     implementation(libs.okhttp.logging.interceptor)
     implementation(libs.coil.kt.compose)
-    implementation(libs.androidx.navigation.compose)
+    implementation(libs.navigation.compose)
+    implementation(libs.kotlinx.serialization.json)
 
 }
