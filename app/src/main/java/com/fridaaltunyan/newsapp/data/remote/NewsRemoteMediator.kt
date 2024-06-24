@@ -17,6 +17,7 @@ import javax.inject.Inject
 class NewsRemoteMediator @Inject constructor(
     private val newsApi: NewsApi,
     private val newsDatabase: NewsDatabase,
+    private val query: String?,
 ) : RemoteMediator<Int, NewsItemEntity>() {
     override suspend fun load(
         loadType: LoadType,
@@ -40,6 +41,7 @@ class NewsRemoteMediator @Inject constructor(
             }
 
             val news = newsApi.searchNews(
+                query = query,
                 page = loadKey,
                 pageSize = state.config.pageSize
             )
@@ -49,7 +51,7 @@ class NewsRemoteMediator @Inject constructor(
                     newsDatabase.dao.clearAll()
                 }
                 val newsEntities =
-                    news.response.newsResponses.map { news-> news.toNewsItemEntity() }
+                    news.response.newsResponses.map { news -> news.toNewsItemEntity() }
                 newsDatabase.dao.upsertAll(newsEntities)
             }
 

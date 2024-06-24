@@ -1,12 +1,16 @@
 package com.fridaaltunyan.newsapp.presentation.news
 
 import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
@@ -24,6 +28,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemKey
 import com.fridaaltunyan.newsapp.domain.model.UINews
 import com.fridaaltunyan.newsapp.presentation.news_detail.NewsItem
+import com.fridaaltunyan.newsapp.ui.theme.PrimaryBackground
 
 @Composable
 fun NewsScreen(
@@ -42,7 +47,13 @@ fun NewsScreen(
     }
     val searchText by viewModel.searchText.collectAsState()
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .navigationBarsPadding()
+            .background(color = PrimaryBackground)
+            .padding(top = 16.dp),
+    ) {
         TextField(
             value = searchText,
             onValueChange = viewModel::onSearchTextChange,
@@ -50,10 +61,13 @@ fun NewsScreen(
             placeholder = { Text(text = "Search") }
         )
         Spacer(modifier = Modifier.height(16.dp))
+
         if (news.loadState.refresh is LoadState.Loading) {
-            CircularProgressIndicator(
-                modifier = Modifier.align(Alignment.Center)
-            )
+            Box(modifier = Modifier.fillMaxSize()) {
+                CircularProgressIndicator(
+                    modifier = Modifier.align(Alignment.Center)
+                )
+            }
         } else {
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),

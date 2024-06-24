@@ -5,5 +5,5 @@ import com.fridaaltunyan.newsapp.domain.model.UINews
 import kotlinx.coroutines.flow.Flow
 
 interface NewsRepository {
-    fun getNews(): Flow<PagingData<UINews>>
+    fun getNews(query: String?): Flow<PagingData<UINews>>
 }

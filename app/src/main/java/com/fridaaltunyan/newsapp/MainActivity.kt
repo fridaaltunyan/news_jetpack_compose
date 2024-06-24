@@ -1,13 +1,15 @@
 package com.fridaaltunyan.newsapp
 
 import android.os.Bundle
+import android.view.Window
+import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.fridaaltunyan.newsapp.presentation.news.NewsScreen
@@ -19,7 +21,9 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        val window: Window? = window
+        window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window?.navigationBarColor = ContextCompat.getColor(this, R.color.primary_background)
         setContent {
             NewsAppTheme {
                 Surface(
@@ -28,7 +32,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     val viewModel = hiltViewModel<NewsViewModel>()
                     val news = viewModel.newsPagingFlow.collectAsLazyPagingItems()
-                    NewsScreen(news = news,viewModel)
+                    NewsScreen(news = news, viewModel)
                 }
             }
         }
