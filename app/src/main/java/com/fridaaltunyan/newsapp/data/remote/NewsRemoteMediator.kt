@@ -35,7 +35,7 @@ class NewsRemoteMediator @Inject constructor(
                     if (lastItem == null) {
                         1
                     } else {
-                        (state.config.pageSize) + 1
+                        (lastItem.currentPage / state.config.pageSize) + 1
                     }
                 }
             }

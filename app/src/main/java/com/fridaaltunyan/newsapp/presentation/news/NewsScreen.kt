@@ -13,14 +13,17 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
@@ -29,6 +32,7 @@ import androidx.paging.compose.itemKey
 import com.fridaaltunyan.newsapp.domain.model.UINews
 import com.fridaaltunyan.newsapp.ui.theme.PrimaryBackground
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NewsScreen(
     news: LazyPagingItems<UINews>,
@@ -57,7 +61,13 @@ fun NewsScreen(
         TextField(
             value = searchText,
             onValueChange = viewModel::onSearchTextChange,
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth(),
+            colors = TextFieldDefaults.colors(
+                focusedContainerColor = PrimaryBackground,
+                unfocusedContainerColor = PrimaryBackground,
+                focusedTextColor = Color.White,
+            ),
             placeholder = { Text(text = "Search") }
         )
         Spacer(modifier = Modifier.height(16.dp))

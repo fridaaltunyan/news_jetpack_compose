@@ -12,6 +12,7 @@ fun NewsItemEntity.toUINews(): UINews = UINews(
 
 fun NewsResponse.toNewsItemEntity(): NewsItemEntity = NewsItemEntity(
     id = id,
+    currentPage = currentPage,
     webTitle = webTitle,
     webPublicationDate = webPublicationDate,
     thumbnail = fields.thumbnail,

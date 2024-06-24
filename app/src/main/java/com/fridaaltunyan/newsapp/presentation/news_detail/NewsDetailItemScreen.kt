@@ -1,7 +1,6 @@
 package com.fridaaltunyan.newsapp.presentation.news_detail
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -29,44 +28,37 @@ fun NewsDetailItemScreen(
     Column(
         modifier = modifier
             .background(color = PrimaryBackground)
-            .padding(16.dp)
             .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         AsyncImage(
             model = news.thumbnail,
             contentDescription = news.webTitle,
             modifier = Modifier
-                .weight(1f)
                 .height(200.dp)
                 .fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(16.dp))
-        Box(
+        Text(
+            text = news.webPublicationDate,
+            fontStyle = FontStyle.Italic,
+            fontSize = 14.sp,
+            color = Gray300,
             modifier = Modifier
-                .fillMaxSize()
-                .weight(1f)
-        ) {
-            Column(
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .padding(horizontal = 16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = news.webTitle,
-                    fontSize = 16.sp,
-                    color = Color.White,
-                    modifier = Modifier.fillMaxWidth()
-                )
-                Spacer(modifier = Modifier.height(16.dp))
-                Text(
-                    text = news.webPublicationDate,
-                    fontStyle = FontStyle.Italic,
-                    fontSize = 14.sp,
-                    color = Gray300,
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
-        }
+                .padding(horizontal = 16.dp)
+                .align(Alignment.End)
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Text(
+            text = news.webTitle,
+            fontSize = 16.sp,
+            color = Color.White,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
+        )
+
     }
+
 }
