@@ -18,7 +18,7 @@ class NewsRepositoryImpl @Inject constructor(
     private val newsPager: Pager<Int, NewsItemEntity>,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) : NewsRepository {
-    override fun getNews(): Flow<PagingData<UINews>> {
+    override fun getNews(query: String?): Flow<PagingData<UINews>> {
         return newsPager.flow.flowOn(ioDispatcher).map { pagingData ->
             pagingData.map { it.toUINews() }
         }

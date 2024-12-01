@@ -48,14 +48,24 @@ object AppModule {
             "news.db"
         ).build()
     }
+    @Provides
+    @Singleton
+    fun provideQueryHolder(): QueryHolder {
+        return QueryHolder()
+    }
 
     @OptIn(ExperimentalPagingApi::class)
     @Provides
     @Singleton
-    fun provideNewsPager(newsDatabase: NewsDatabase, newsApi: NewsApi): Pager<Int, NewsItemEntity> {
+    fun provideNewsPager(
+        newsDatabase: NewsDatabase,
+        newsApi: NewsApi,
+        queryHolder: QueryHolder,
+    ): Pager<Int, NewsItemEntity> {
         return Pager(
             config = PagingConfig(pageSize = 20),
             remoteMediator = NewsRemoteMediator(
+                query = queryHolder.query,
                 newsApi = newsApi,
                 newsDatabase = newsDatabase
             ),

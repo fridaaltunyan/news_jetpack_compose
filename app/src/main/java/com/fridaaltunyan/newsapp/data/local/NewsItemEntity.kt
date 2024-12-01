@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "news")
 data class NewsItemEntity(
     @PrimaryKey val id: String,
+    val currentPage: Int,
     val webTitle: String,
     val webPublicationDate: String,
     val thumbnail: String?,
